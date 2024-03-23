@@ -44,12 +44,6 @@ begin
     writeln;
 end;
 
-procedure generarV2(v: venta; var v2: venta2);
-begin
-    v2.cod:= v.cod;
-    v2.cant:= v.cant;
-end;
-
 procedure generarArbol1(var a: arbol; v: venta);
 begin
     if (a = nil) then
@@ -74,9 +68,11 @@ begin
         a^.HI:= nil;
         a^.HD:= nil;
     end
-    else if (v.cod <= a^.d.cod) then
+    else if (v.cod < a^.d.cod) then
         generarArbol2(a^.HI, v)
-    else
+    else if (v.cod = a^.d.cod) then
+		a^.d.cant:= a^.d.cant + v.cant
+	else
         generarArbol2(a^.HD, v);
 end;
 
@@ -97,11 +93,16 @@ begin
 end;
 
 function busqCant1(a: arbol; busq: integer):integer;
+var
+	aux: integer;
 begin
     if (a = nil) then
-        busqCant1:= -1 //Valor no encontrado
+        busqCant1:= 0 //Valor no encontrado
     else if (a^.d.cod = busq) then
-        busqCant1:= a^.d.cant
+    begin
+        aux:= a^.d.cant;
+        busqCant1:= busqCant1(a^.HI, busq) + aux;
+    end
     else if (busq > a^.d.cod) then
         busqCant1:= busqCant1(a^.HD, busq)
     else

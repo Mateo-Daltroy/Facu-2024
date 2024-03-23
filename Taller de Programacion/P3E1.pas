@@ -102,9 +102,7 @@ begin
 		busqSocio:= busqSocio(a^.HI, busq);
 end;
 
-
-// Preguntar Modulo
-procedure busqNombre(a: arbol; busq: string; enc: boolean);
+procedure busqNombre(a: arbol; busq: string; var enc: boolean);
 // Inicializar enc en false desde afuera
 begin
 	if (a <> nil) and (enc = false) then
@@ -118,8 +116,6 @@ begin
 		end;
 	end;
 end;
-// Preguntar modulo
-
 
 procedure cantSocios (a: arbol; var c: integer);
 begin
