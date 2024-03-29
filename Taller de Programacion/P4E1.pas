@@ -88,7 +88,21 @@ begin
     end;
 end;
 
-// No se como hacer el punto C sin recorrer todo el arbol
+procedure cantCodMen(a: arbol; min: integer; var cont: integer);
+begin
+    if (a <> nil) then
+    begin
+        if (a^.d.cod > min) then
+            cantCodMen(a^.HI, min, cont);
+        else
+        begin
+            cont:= cont + 1;
+            cantCodMen(a^.HI, min, cont);
+            cantCodMen(a^.HD, min, cont);
+        end;
+    end;
+end;
+
 
 // Consultar por este modulo
 procedure codigosEntre(a: arbol; min, max: integer; var tot: real);
